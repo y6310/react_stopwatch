@@ -1,4 +1,5 @@
-import { useState }  from "react";
+import Times from "./Times.js";
+import Laps from "./Laps.js";
 
 function App() {
 
@@ -6,10 +7,10 @@ function App() {
     <div>
       <p>ストップウォッチ</p>
       <Times/>
-      <buttom>START</buttom>
-      <buttom>LAP</buttom>
-      <buttom>STOP</buttom>
-      <buttom>RESET</buttom>
+      
+      {/* <button>LAP</button> */}
+      {/* <button>STOP</button> */}
+      
       <Laps/>
     </div>
   );
