@@ -1,4 +1,5 @@
 import React from 'react'
+import Laps from './Laps'
 import { useState, useEffect }  from "react";
 
 const Times = () => {
@@ -6,17 +7,17 @@ const Times = () => {
     const [sectime, setsecTime] = useState(0);
     const [mintime, setminTime] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
+    const [lapTimes, setLapTimes] = useState([]);
 
     useEffect(() => {
-        let interval;
-    
-        if (isRunning) {//isRunningがtrueのとき
-            interval = setInterval(() => {//10ミリ秒ごと実行
+        let interval
+        if(isRunning) {
+            interval = setInterval(() => {
                 setmmTime((prevmmTime) => {
-                    if (prevmmTime >= 99) {
+                    if(prevmmTime >= 99){
                         setsecTime((prevSecTime) => {
-                            if (prevSecTime >= 59) {
-                                setminTime((prevMinTime) => prevMinTime + 1);//秒が59以上になったら分を足す
+                            if(prevSecTime >= 59){
+                                setminTime((prevMinTime) => prevMinTime +1);
                                 return 0;
                             }
                             return prevSecTime + 1;
@@ -25,31 +26,49 @@ const Times = () => {
                     }
                     return prevmmTime + 1;
                 });
-            }, 10);  
-        } else {
+            },10);
+
+        }else{
             clearInterval(interval);
         }
-    
-        return () => clearInterval(interval);
-    }, [isRunning]);
 
+
+        return () => clearInterval(interval);
+    },[isRunning]);
 
         const startStop = () =>{
             setIsRunning(!isRunning);
         }
 
-        const reset = () =>{
-            setmmTime(0);
-            setsecTime(0);
-            setminTime(0);
-            setIsRunning(false);
+        const resetLap = () =>{
+            if(!isRunning){
+                setmmTime(0);
+                setsecTime(0);
+                setminTime(0);
+                setIsRunning(false);
+                setLapTimes([])
+                }
         };
+
+        const toggleTime = () =>{
+            let lapMinTime = mintime
+            let lapSecTime = sectime
+            let lapMmTime = mmtime
+            
+
+            setLapTimes((prevLapTimes) => {
+                return[...prevLapTimes, {lapMinTime, lapSecTime, lapMmTime}]
+            })
+        };
+
+        const handleClick = isRunning ? toggleTime : resetLap
 
   return (
     <>
     <div>{String(mintime).padStart(2, '0')}:{String(sectime).padStart(2, '0')}.{String(mmtime).padStart(2, '0')}</div>
     <button onClick = {startStop}>{isRunning ? 'Stop' : 'Start'}</button>
-    <button onClick = {reset}>Reset</button>
+    <button onClick = {handleClick}>{isRunning ? 'Lap' : 'Reset'}</button>
+    <Laps lapTimes = {lapTimes}/>
     </>
   )
 };
