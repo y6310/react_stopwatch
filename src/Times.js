@@ -65,10 +65,14 @@ const Times = () => {
 
   return (
     <>
-    <div>{String(mintime).padStart(2, '0')}:{String(sectime).padStart(2, '0')}.{String(mmtime).padStart(2, '0')}</div>
-    <button onClick = {startStop}>{isRunning ? 'Stop' : 'Start'}</button>
-    <button onClick = {handleClick}>{isRunning ? 'Lap' : 'Reset'}</button>
+    <div className="p-32 text-6xl text-center">{String(mintime).padStart(2, '0')}:{String(sectime).padStart(2, '0')}.{String(mmtime).padStart(2, '0')}</div>
+    <div className="flex justify-center">
+    <button onClick = {handleClick} className = "bg-gray-500 hover:bg-gray-400 text-white rounded px-4 py-2">{isRunning ? 'Lap' : 'Reset'}</button>        
+    <button onClick = {startStop} className = "bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2">{isRunning ? 'Stop' : 'Start'}</button>
+    </div>
+    <div className="flex justify-center">
     <Laps lapTimes = {lapTimes}/>
+    </div>
     </>
   )
 };

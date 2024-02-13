@@ -1,11 +1,12 @@
 import Times from "./Times.js";
 
+
 function App() {
 
   return (
     <div>
-      <p>ストップウォッチ</p>
-      <Times/>      
+      <p className="p-12 text-6xl text-center">ストップウォッチ</p>
+      <Times />      
     </div>
   );
 }

@@ -4,7 +4,7 @@ const Laps = ({ lapTimes }) => {
     return (
       <div>
         {lapTimes.map((lap, index) => (
-          <div key={index}>
+          <div key={index} className = "text-3xl">
             Lap{String(index+1)} {String(lap.lapMinTime).padStart(2, '0')}:{String(lap.lapSecTime).padStart(2, '0')}.{String(lap.lapMmTime).padStart(2, '0')}
           </div>
         ))}
